@@ -14,17 +14,17 @@ pipeline = DetectMiniXceptionFER()
 
 @app.route("/", methods=["POST"])
 def index():
-    # img_pil = Image.open(io.BytesIO(request.files["request_data"].read()))
-    # img_numpy = np.asarray(img_pil)
-    # img_bgr = cv2.cvtColor(img_numpy, cv2.COLOR_RGBA2BGR)
-    # detect_result = pipeline(img_bgr)
-    frame = cv2.imread("./test1.jpg")
-    detect_result = pipeline(frame)
+    img_pil = Image.open(io.BytesIO(request.files["request_data"].read()))
+    img_numpy = np.asarray(img_pil)
+    img_bgr = cv2.cvtColor(img_numpy, cv2.COLOR_RGBA2BGR)
+    detect_result = pipeline(img_bgr)
+    print(class_name, score)
+    if not detect_result["boxes2D"]:
+        return "0"
     class_name, score = detect_result["boxes2D"][0]._class_name, detect_result["boxes2D"][0]._score 
-    if "boxes2D" not in detect_result:
-        return None
-    
-    return f"{class_name}, {score}"
+    if class_name != "happy":
+        return "0"
+    return f"{score}"
 
 if __name__ == "__main__":
     warnings.simplefilter('ignore')
