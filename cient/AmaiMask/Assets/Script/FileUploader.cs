@@ -1,7 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.IO;
+using System.Text;
 
 public class FileUploader : MonoBehaviour
 {
@@ -15,24 +17,22 @@ public class FileUploader : MonoBehaviour
     {
         string fileName = "hoge.jpg";
         string filePath = Application.dataPath + "/" + fileName;
-        // ‰æ‘œƒtƒ@ƒCƒ‹‚ğbyte”z—ñ‚ÉŠi”[
         byte[] img = File.ReadAllBytes(filePath);
 
-        // form‚ÉƒoƒCƒiƒŠƒf[ƒ^‚ğ’Ç‰Á
         WWWForm form = new WWWForm();
-        form.AddBinaryData("file", img, fileName, "image/jpeg");
-        // HTTPƒŠƒNƒGƒXƒg‚ğ‘—‚é
+        form.AddBinaryData("request_data", img, "file", "image/png");
+        
         UnityWebRequest request = UnityWebRequest.Post("http://127.0.0.1:5000", form);
         yield return request.SendWebRequest();
 
         if (request.isHttpError || request.isNetworkError)
         {
-            // POST‚É¸”s‚µ‚½ê‡CƒGƒ‰[ƒƒO‚ğo—Í
+            // POSTï¿½Éï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½Cï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½oï¿½ï¿½
             Debug.Log(request.error);
         }
         else
         {
-            // POST‚É¬Œ÷‚µ‚½ê‡CƒŒƒXƒ|ƒ“ƒXƒR[ƒh‚ğo—Í
+            // POSTï¿½Éï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½Cï¿½ï¿½ï¿½Xï¿½|ï¿½ï¿½ï¿½Xï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½oï¿½ï¿½
             Debug.Log(request.responseCode);
         }
     }
