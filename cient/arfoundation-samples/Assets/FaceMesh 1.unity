@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &10187375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2090,7 +2090,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UseCustomMaterial: 0
-  m_CustomMaterial: {fileID: 0}
+  m_CustomMaterial: {fileID: -8563565329478003292, guid: d93d5415c51fa49aba66e61ec7b78b34,
+    type: 3}
 --- !u!114 &1781342060
 MonoBehaviour:
   m_ObjectHideFlags: 0
