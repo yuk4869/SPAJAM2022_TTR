@@ -22,10 +22,10 @@ public class FileUploader : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddBinaryData("file", img, fileName, "image/jpeg");
         // HTTPリクエストを送る
-        UnityWebRequest request = UnityWebRequest.Post("http://192.168.0.10/upload.php", form);
+        UnityWebRequest request = UnityWebRequest.Post("http://127.0.0.1:5000", form);
         yield return request.SendWebRequest();
 
-        if (request.isHttpError || request.isNetworkError) 
+        if (request.isHttpError || request.isNetworkError)
         {
             // POSTに失敗した場合，エラーログを出力
             Debug.Log(request.error);
