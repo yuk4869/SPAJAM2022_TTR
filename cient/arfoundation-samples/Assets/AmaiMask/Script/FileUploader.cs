@@ -18,9 +18,9 @@ public class FileUploader : MonoBehaviour
 {
     [SerializeField] private ARCameraManager _cameraManager = null;
     [SerializeField] private GameObject _target = null;
-    [SerializeField] private Texture2D _sampleTexture = null;
-    [SerializeField] private Material _transposeMaterial = null;
-    [SerializeField] private Text _text = null;
+    //[SerializeField] private Texture2D _sampleTexture = null;
+    //[SerializeField] private Material _transposeMaterial = null;
+    //[SerializeField] private Text _text = null;
 
     private Texture2D _texture = null;
     private RenderTexture _previewTexture = null;
@@ -37,12 +37,12 @@ public class FileUploader : MonoBehaviour
 
     void Start()
     {
-        //_cameraManager.frameReceived += OnCameraFrameReceived;
+        _cameraManager.frameReceived += OnCameraFrameReceived;
 
 
         // RawImageのテクスチャにWebCamTextureのインスタンスを設定
-        WebCamDevice[] webCamDevice = WebCamTexture.devices;
-        webCam = new WebCamTexture(webCamDevice[1].name);
+        //WebCamDevice[] webCamDevice = WebCamTexture.devices;
+        //webCam = new WebCamTexture(webCamDevice[1].name);
 
 
         //９０度回転
@@ -51,7 +51,7 @@ public class FileUploader : MonoBehaviour
         //RawImage.GetComponent<RectTransform>().eulerAngles = angles;
         //
         
-        webCam.Play();
+        //webCam.Play();
         //WebCamDevice[] webCamDevice = WebCamTexture.devices;
 
 
@@ -62,18 +62,18 @@ public class FileUploader : MonoBehaviour
     {
         // TryGetLatestImageで最新のイメージを取得します。
         // ただし、失敗の可能性があるため、falseが返された場合は無視します。
-        if (!_cameraManager.TryGetLatestImage(out XRCameraImage cameraImage)) return;
+        if (!_cameraManager.TryGetLatestImage(out XRCpuImage cameraImage)) return;
 
         // 中略
 
         // デバイスの回転に応じてカメラの情報を変換するための情報を定義します。
-        CameraImageTransformation imageTransformation = (Input.deviceOrientation == DeviceOrientation.LandscapeRight)
-            ? CameraImageTransformation.MirrorY
-            : CameraImageTransformation.MirrorX;
+        XRCpuImage.Transformation imageTransformation = (Input.deviceOrientation == DeviceOrientation.LandscapeRight)
+            ? XRCpuImage.Transformation.MirrorY
+            : XRCpuImage.Transformation.MirrorX;
 
         // カメライメージを取得するためのパラメータを設定します。
-        XRCameraImageConversionParams conversionParams =
-            new XRCameraImageConversionParams(cameraImage, TextureFormat.RGBA32, imageTransformation);
+        XRCpuImage.ConversionParams conversionParams =
+            new XRCpuImage.ConversionParams(cameraImage, TextureFormat.RGBA32, imageTransformation);
 
         // 生成済みのTexture2D（_texture）のネイティブのデータ配列の参照を得ます。
         NativeArray<byte> rawTextureData = _texture.GetRawTextureData<byte>();
@@ -100,49 +100,51 @@ public class FileUploader : MonoBehaviour
     private void OnCameraFrameReceived(ARCameraFrameEventArgs eventArgs)
     {
         RefreshCameraFeedTexture();
-        DisplayInfo();
+        //DisplayInfo();
     }
 
-    IEnumerator UploadFile()
-    {
-        //string fileName = "hoge.jpg";
-        //string filePath = Application.dataPath + "/" + fileName;
-        // 画像ファイルをbyte配列に格納
-        //byte[] img = File.ReadAllBytes(filePath);
+    //IEnumerator UploadFile()
+    //{
+        
+    //{
+    //        //string fileName = "hoge.jpg";
+    //        //string filePath = Application.dataPath + "/" + fileName;
+    //        // 画像ファイルをbyte配列に格納
+    //        //byte[] img = File.ReadAllBytes(filePath);
 
-        //
-        webCam.Play();
-        RawImage.texture = webCam;
+    //        //
+    //        //webCam.Play();
+    //    //RawImage.texture = webCam;
 
-        Texture2D texture = new Texture2D(webCam.width, webCam.height, TextureFormat.ARGB32, false);
-        texture.SetPixels(webCam.GetPixels());
-        byte[] img = texture.EncodeToJPG();
-        Object.Destroy(texture);
+    //    Texture2D texture = new Texture2D(webCam.width, webCam.height, TextureFormat.ARGB32, false);
+    //    texture.SetPixels(_texture.GetPixels());
+    //    byte[] img = texture.EncodeToJPG();
+    //    UnityEngine.Object.Destroy(texture);
 
-        //byte[] img = File.ReadAllBytes(webCam.GetPixels());
+    //    //byte[] img = File.ReadAllBytes(webCam.GetPixels());
 
 
-        // formにバイナリデータを追加
-        WWWForm form = new WWWForm();
-        form.AddBinaryData("request_data", img, "file", "image/png");
-        // HTTPリクエストを送る
-        UnityWebRequest request = UnityWebRequest.Post("http://127.0.0.1:5000", form);
-        Debug.Log("Send");
-        yield return request.SendWebRequest();
+    //    // formにバイナリデータを追加
+    //    WWWForm form = new WWWForm();
+    //    form.AddBinaryData("request_data", img, "file", "image/png");
+    //    // HTTPリクエストを送る
+    //    UnityWebRequest request = UnityWebRequest.Post("http://127.0.0.1:5000", form);
+    //    Debug.Log("Send");
+    //    yield return request.SendWebRequest();
 
-        if (request.isHttpError || request.isNetworkError)
-        {
-            // POSTに失敗した場合，エラーログを出力
-            Debug.Log(request.error);
-        }
-        else
-        {
-            // POSTに成功した場合，レスポンスコードを出力
-            Debug.Log(request.responseCode);
-        }
-    }
+    //    if (request.isHttpError || request.isNetworkError)
+    //    {
+    //        // POSTに失敗した場合，エラーログを出力
+    //        Debug.Log(request.error);
+    //    }
+    //    else
+    //    {
+    //        // POSTに成功した場合，レスポンスコードを出力
+    //        Debug.Log(request.responseCode);
+    //    }
+    //}
 
-    private IEnumerator Send(float frame)
+    IEnumerator Send(float frame)
     {
         while (true)
         {
@@ -151,7 +153,7 @@ public class FileUploader : MonoBehaviour
 
             Texture2D texture = new Texture2D(640, 480, TextureFormat.RGB565, false);
             
-            texture.SetPixels32(webCam.GetPixels32());
+            texture.SetPixels32(_texture.GetPixels32());
             byte[] img = texture.EncodeToJPG();
             Debug.Log(img);
             //RawImage2.texture = texture;
