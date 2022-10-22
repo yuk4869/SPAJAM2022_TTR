@@ -20,10 +20,11 @@ def index():
     # detect_result = pipeline(img_bgr)
     frame = cv2.imread("./test1.jpg")
     detect_result = pipeline(frame)
-    print(detect_result["boxes2D"])
+    class_name, score = detect_result["boxes2D"][0]._class_name, detect_result["boxes2D"][0]._score 
     if "boxes2D" not in detect_result:
         return None
-    return detect_result["boxes2D"]
+    
+    return f"{class_name}, {score}"
 
 if __name__ == "__main__":
     warnings.simplefilter('ignore')
