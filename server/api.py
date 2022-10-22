@@ -18,10 +18,10 @@ def index():
     img_numpy = np.asarray(img_pil)
     img_bgr = cv2.cvtColor(img_numpy, cv2.COLOR_RGBA2BGR)
     detect_result = pipeline(img_bgr)
-    print(class_name, score)
     if not detect_result["boxes2D"]:
         return "0"
     class_name, score = detect_result["boxes2D"][0]._class_name, detect_result["boxes2D"][0]._score 
+    print(class_name, score)
     if class_name != "happy":
         return "0"
     return f"{score}"
