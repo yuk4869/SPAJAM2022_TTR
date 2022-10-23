@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3626706166743634364}
   - component: {fileID: 5900824809403613327}
   m_Layer: 0
-  m_Name: Image
+  m_Name: CakeImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 8974329312721216934}
   - component: {fileID: 8604387184514417845}
   m_Layer: 0
-  m_Name: Image (3)
+  m_Name: CakeImage (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -434,7 +434,7 @@ GameObject:
   - component: {fileID: 282608469165591760}
   - component: {fileID: 5958694194188056529}
   m_Layer: 0
-  m_Name: Image (4)
+  m_Name: CakeImage (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -531,7 +531,7 @@ GameObject:
   - component: {fileID: 1026358087950698504}
   - component: {fileID: 162609821140146551}
   m_Layer: 0
-  m_Name: Image (1)
+  m_Name: CakeImage (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -827,7 +827,7 @@ GameObject:
   - component: {fileID: 6270089931635953580}
   - component: {fileID: 3003436637063937666}
   m_Layer: 0
-  m_Name: Image (5)
+  m_Name: CakeImage (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -920,6 +920,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2211276448010781659}
+  - component: {fileID: 4256678069023508723}
   m_Layer: 0
   m_Name: moriage
   m_TagString: Untagged
@@ -943,3 +944,16 @@ Transform:
   m_Father: {fileID: 3113883904812593856}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4256678069023508723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8824794982323371738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 716aa12090ab7ad4e88168a7c6fc43f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  am: {fileID: 7687261555763461702}

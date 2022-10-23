@@ -18,7 +18,7 @@ public class ScoreScript : MonoBehaviour
         while (true) 
         {
             gauge.fillAmount = totalScore / 100.0f;
-            float rnd = Random.Range(-5.5f, 9.9f);
+            float rnd = Random.Range(-3.0f, 12.0f);
 
             totalScore += rnd;
             yield return new WaitForSeconds(frame);

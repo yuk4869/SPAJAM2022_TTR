@@ -11,6 +11,7 @@ using Unity.Collections;
 using UnityEngine.Networking;
 using System.IO;
 using UnityEngine.UI;
+using System.Text;
 
 
 public class CamerImageController : MonoBehaviour
@@ -19,13 +20,15 @@ public class CamerImageController : MonoBehaviour
 
     private Texture2D mTexture;
     private MeshRenderer mRenderer;
-
+    public Text text;
+    public Image im;
     private void Start()
     {
         mRenderer = GetComponent<MeshRenderer>();
 
         StartCoroutine(Send(0.3f));
     }
+    
 
     void OnEnable()
     {
@@ -68,33 +71,49 @@ public class CamerImageController : MonoBehaviour
     }
     IEnumerator Send(float frame)
     {
+        //text.text = "untidoro";
+        
         while (true)
         {
             //RawImage.texture = ARCameraManager.s_Textures[0];
 
 
-            Texture2D texture = new Texture2D(640, 480, TextureFormat.RGB565, false);
+            //Texture2D texture = new Texture2D(320, 240, TextureFormat.RGB565, false);
 
-            texture.SetPixels32(mTexture.GetPixels32());
-            byte[] img = texture.EncodeToJPG();
-            Debug.Log(img);
+            //texture.SetPixels32(mTexture.GetPixels32());
+            //this.GetComponent<>
+            if(mTexture != null)
+            {
+                byte[] img = mTexture.EncodeToJPG();
+            }
+            else
+            {
+                yield return 0;
+            }
+            
+
+            //var img = mTexture.GetRawTextureData<byte>();
+            //Debug.Log(img);
             //RawImage2.texture = texture;
 
             //Object.Destroy(texture);
 
             //byte[] img = File.ReadAllBytes(webCam.GetPixels());
-
+            
 
             // formにバイナリデータを追加
             WWWForm form = new WWWForm();
-            form.AddBinaryData("request_data", img, "file", "image/png");
+            // form.AddBinaryData("request_data", img, "file", "image/png");
             // HTTPリクエストを送る
-            UnityWebRequest request = UnityWebRequest.Post("http://127.0.0.1:5000", form);
+            // UnityWebRequest request = UnityWebRequest.Post("https://test2random.azurewebsites.net", form);
+            UnityWebRequest request = UnityWebRequest.Get("https://test2random.azurewebsites.net");
 
+
+            //text.text = "Send";
             Debug.Log("Send");
             request.SendWebRequest();
-            yield return new WaitForSeconds(frame);
 
+            yield return new WaitForSeconds(frame);
             //frame--;
 
             if (request.isHttpError || request.isNetworkError)
@@ -106,7 +125,12 @@ public class CamerImageController : MonoBehaviour
             {
                 // POSTに成功した場合，レスポンスコードを出力
                 Debug.Log(request.responseCode);
+                var data = request.downloadHandler.data;
+                var rmd = Encoding.GetEncoding("utf-8").GetString(data);
+                Debug.Log("受信したよ！！！！！！"+ rmd);
+                text.text = rmd;
             }
+            //yield return new WaitForSeconds(frame);
 
         }
 
