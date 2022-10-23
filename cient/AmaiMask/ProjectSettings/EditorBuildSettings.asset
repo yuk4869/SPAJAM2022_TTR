@@ -4,9 +4,23 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/AmaiMask/SampleScene.unity
+    guid: 7687a380a504f874bb62a475b47dd13f
+  - enabled: 1
+    path: Assets/MainScene.unity
+    guid: 939b661150a3bb146af6768a11740415
   m_configObjects:
-    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 93f64d2aa3e007244bcd49d2a5a5e5a9, type: 2}
-    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: e1c4297bc159b514fb2807f90b11925d, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: a5467466e9998e14da0b0b45e0e4c065, type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 20cbbb84da444a54ab7e03ed22f39b7e, type: 2}
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: f8ce26fe3bc69499b9be4b2378e97a94,
+      type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 98c79e8cc22674a89a95a3a90e2b70cb,
+      type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 302e9f36808117f4184b07b05ca5bb47,
+      type: 2}
+    com.unity.xr.arkit.PlayerSettings: {fileID: 11400000, guid: 2d5fb8e61571b4e3897f221189089fd6,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e2f869774b12e400996eb546603602e3,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 857703b2c2b117940aaef47e19c7bef1,
+      type: 2}
